@@ -6,10 +6,7 @@ A gentle full-screen alarm clock that makes you take a break. Every 30 minutes i
 5-minute countdown, a short health tip, and an encouraging quote. Free, open source, for Windows and Mac.
 Switch between English, 中文 and Español with one click.
 
-<p align="center">
-  <a href="https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip"><img src="images/download-en.png" width="300" alt="Download"></a>
-</p>
-<p align="center"><sub>One click downloads a .zip file. Then follow <b>Free download</b> and <b>Get started</b> below.</sub></p>
+<h2 align="center"><a href="https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip"><u>Download</u></a></h2>
 
 ![Break Reminder preview](preview-en.png)
 
@@ -39,7 +36,7 @@ A five-minute pause every half hour is a small habit with real benefits:
 
 It is **100% free** and open source (MIT license). No account, no ads, no tracking.
 
-**Click the big button at the top of this page** (or [this link](https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip)). Your browser downloads a file called `break-reminder-main.zip`. Then:
+**Click [Download](https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip)** (the same link is at the top of this page). Your browser downloads a file called `break-reminder-main.zip`. Then:
 
 1. **Find the file.** Click it in your browser's download bar, or open your **Downloads** folder.
 2. **Unzip it.** On Windows, right-click the file → **Extract All** → **Extract**; the unzipped folder opens by itself. On a Mac, double-click the file; the folder appears next to it.

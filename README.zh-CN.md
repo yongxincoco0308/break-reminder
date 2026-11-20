@@ -4,10 +4,7 @@
 
 一个温柔的全屏闹钟，提醒你好好休息。每工作 30 分钟，它会盖满整个屏幕，给你一个 5 分钟的倒计时、一条健康小提示和一句鼓励的名言。免费、开源，支持 Windows 和 Mac。中文、English、Español 一点就能切换。
 
-<p align="center">
-  <a href="https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip"><img src="images/download-zh.png" width="300" alt="下载"></a>
-</p>
-<p align="center"><sub>点一下就会下载一个 .zip 压缩包。然后看下面的 <b>免费下载</b> 和 <b>开始用</b>。</sub></p>
+<h2 align="center"><a href="https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip"><u>下载</u></a></h2>
 
 ![休息提醒预览](preview-zh.png)
 
@@ -37,7 +34,7 @@
 
 它**完全免费**，使用 MIT 许可证开源。不用注册账号，没有广告，也不收集任何数据。
 
-**点本页最上面那个大按钮**（或者点[这个链接](https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip)）。浏览器会下载一个叫 `break-reminder-main.zip` 的文件。然后：
+**点[下载](https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip)**（本页最上面也有同样的链接）。浏览器会下载一个叫 `break-reminder-main.zip` 的文件。然后：
 
 1. **找到这个文件。** 在浏览器的下载栏里点它，或者打开电脑的 **下载** 文件夹。
 2. **解压。** Windows 上：在文件上右键 → **全部解压缩** → **解压**，解压好的文件夹会自动打开。Mac 上：双击这个文件，文件夹就出现在它旁边。

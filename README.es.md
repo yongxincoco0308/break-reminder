@@ -4,10 +4,7 @@
 
 Un reloj despertador amable, a pantalla completa, que te recuerda descansar. Cada 30 minutos cubre tu pantalla con una cuenta atrás de 5 minutos, un consejo de salud y una cita que te anima. Gratis, de código abierto, para Windows y Mac. Cambia entre English, 中文 y Español con un clic.
 
-<p align="center">
-  <a href="https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip"><img src="images/download-es.png" width="300" alt="Descargar"></a>
-</p>
-<p align="center"><sub>Un clic descarga un archivo .zip. Después sigue <b>Descarga gratuita</b> y <b>Empezar</b> más abajo.</sub></p>
+<h2 align="center"><a href="https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip"><u>Descargar</u></a></h2>
 
 ![Vista previa de Break Reminder](preview-es.png)
 
@@ -37,7 +34,7 @@ Una pausa de cinco minutos cada media hora es un hábito pequeño con beneficios
 
 Es **100 % gratis** y de código abierto (licencia MIT). Sin cuenta, sin anuncios, sin rastreo.
 
-**Pulsa el botón grande de arriba** (o [este enlace](https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip)). Tu navegador descarga un archivo llamado `break-reminder-main.zip`. Después:
+**Pulsa [Descargar](https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip)** (el mismo enlace está arriba, al principio de la página). Tu navegador descarga un archivo llamado `break-reminder-main.zip`. Después:
 
 1. **Busca el archivo.** Púlsalo en la barra de descargas del navegador o abre tu carpeta **Descargas**.
 2. **Descomprímelo.** En Windows: clic derecho en el archivo → **Extraer todo** → **Extraer**; la carpeta descomprimida se abre sola. En Mac: doble clic en el archivo; la carpeta aparece a su lado.
