@@ -34,6 +34,25 @@ if sys.platform == "darwin":
 else:
     STATE_DIR = os.path.join(os.path.expanduser("~"), ".break-reminder")
 LANGS = ("zh", "en", "es")
+SETTINGS_FILE = os.path.join(STATE_DIR, "settings.json")      # remembers the language the user clicked
+
+
+def get_saved_language():
+    try:
+        with open(SETTINGS_FILE, "r", encoding="utf-8-sig") as f:
+            lang = json.load(f).get("language", "")
+        return lang if lang in LANGS else ""
+    except Exception:
+        return ""
+
+
+def save_language(code):
+    try:
+        os.makedirs(STATE_DIR, exist_ok=True)
+        with open(SETTINGS_FILE, "w", encoding="utf-8") as f:
+            json.dump({"language": code}, f)
+    except Exception:
+        pass
 
 STRINGS = {
     "zh": {
@@ -86,7 +105,7 @@ STRINGS = {
         "skip": "Saltar este descanso",
         "snooze": "Recuérdamelo en {n} min",
         "hint": "Pulsa Esc o un botón para cerrar cuando quieras",
-        "done_title": "¡Descanso terminado, tú puedes!",
+        "done_title": "¡Descanso terminado! ¡Tú puedes!",
         "done_sub": "Lo estás haciendo genial",
         "done_top": "Próximo aviso en {n} minutos",
         "done_btn": "Empezar el siguiente ciclo",
@@ -165,6 +184,10 @@ def play_sound(root, name="Glass"):
 
 class BreakScreen:
     def __init__(self, app, minutes, on_close, preview_finished=False, preview=False):
+        if not preview:        # the language may have been changed on the last break screen
+            saved = get_saved_language()
+            if saved and saved != app.lang:
+                app.set_language(saved)
         self.app, self.S = app, app.S
         self.minutes = minutes
         self.on_close = on_close
@@ -233,11 +256,19 @@ class BreakScreen:
         self.fonts = {
             "top": f(ui, 0.021), "title": f(ui, 0.052, "bold"), "sub": f(ui, 0.022),
             "count": f(ui, 0.14 * 0.40, "bold"),
-            "qmain": f(ui, 0.033, "bold") if self.app.lang == "zh" else f(serif, 0.030, "bold"),
+            "qmain": None,
             "qsec": f(serif, 0.022, slant="italic"), "qby": f(ui, 0.017),
             "btn": f(ui, 0.028, "bold"), "link": f(ui, 0.018), "link_h": f(ui, 0.018, underline=1),
             "hint": f(ui, 0.017),
         }
+        self.ui_family, self.serif_family = ui, serif
+        self.fonts["qmain"] = self.make_qmain()
+
+    def make_qmain(self):
+        # main quote font: CJK sans for Chinese, serif for English / Spanish
+        px = -max(8, int(self.H * (0.033 if self.app.lang == "zh" else 0.030)))
+        family = self.ui_family if self.app.lang == "zh" else self.serif_family
+        return tkfont.Font(root=self.app.root, family=family, size=px, weight="bold")
 
     # ---------- background ----------
     def bg_at(self, y):
@@ -318,10 +349,24 @@ class BreakScreen:
 
     # ---------- buttons ----------
     def set_buttons(self):
+        self._main_buttons()
+        # language switch in the top-right corner: 中文 · English · Español (click = switch now, and remember)
+        W, H = self.W, self.H
+        chip_h, gap = H * 0.040, H * 0.008
+        items = (("zh", "中文", 0.072), ("en", "English", 0.095), ("es", "Español", 0.095))
+        total = sum(H * wf + gap for _, _, wf in items)
+        x = W - H * 0.025 - total + gap
+        for code, label, wf in items:
+            cw = H * wf
+            self.btns.append(dict(rect=(x, H * 0.022, x + cw, H * 0.022 + chip_h), text=label,
+                                  action="lang:" + code, style="lang"))
+            x += cw + gap
+
+    def _main_buttons(self):
         W, H, S = self.W, self.H, self.S
         bh = H * 0.070
         if self.finished:
-            bw, y = H * 0.34, H * 0.865
+            bw, y = H * 0.44, H * 0.843
             self.btns = [dict(rect=((W - bw) / 2, y, (W + bw) / 2, y + bh), text=S["done_btn"], action="done", style="primary")]
         else:
             # nudge people towards "remind me later": big primary button vs. a faint "skip" link
@@ -373,6 +418,13 @@ class BreakScreen:
         for i, b in enumerate(self.btns):
             x0, y0, x1, y1 = b["rect"]
             hov = (i == self.hover)
+            if b["style"] == "lang":
+                cur = (b["action"] == "lang:" + self.app.lang)
+                if cur:
+                    self.pill(x0, y0, x1, y1, (205, 235, 228))
+                col = (52, 140, 132) if cur else ((84, 66, 60) if hov else blend(self.bg_at(y0), (150, 130, 115), 0.75))
+                self.text((x0 + x1) / 2, (y0 + y1) / 2, b["text"], F["link"], col, fade=1.0)
+                continue
             if b["style"] == "link":
                 col = (110, 95, 85) if hov else (150, 130, 115)
                 self.text((x0 + x1) / 2, (y0 + y1) / 2, b["text"], F["link_h"] if hov else F["link"],
@@ -481,10 +533,35 @@ class BreakScreen:
             self.hover = idx
             self.canvas.config(cursor="hand2" if idx >= 0 else "")
 
+    def update_texts(self):
+        S = self.S
+        if self.finished:
+            self.center_text, self.title, self.tip = S["done_clock"], S["done_title"], S["done_sub"]
+            self.top_text = fmt_n(S["done_top"], self.app.args.work)
+        else:
+            self.title = fmt_n(S["title"], self.minutes)
+            self.top_text = fmt_n(S["top"], self.app.args.work)
+            self.tip = S["tips"][self.tip_idx]
+        self.set_buttons()
+
+    def switch_language(self, code):
+        if code == self.app.lang:
+            return
+        self.app.set_language(code)
+        if not self.preview:
+            save_language(code)
+        self.S = self.app.S
+        self.fonts["qmain"] = self.make_qmain()
+        self.update_texts()
+
     def on_click(self, e):
         if time.time() - self.shown_at < 1.5 or self.hover < 0:     # ignore accidental input right after popup
             return
-        self.close(self.btns[self.hover]["action"])
+        action = self.btns[self.hover]["action"]
+        if action.startswith("lang:"):
+            self.switch_language(action[5:])                        # change language without closing the break
+            return
+        self.close(action)
 
     def on_escape(self, e=None):
         if time.time() - self.shown_at < 1.5:
@@ -505,7 +582,10 @@ class BreakScreen:
 class App:
     def __init__(self, args):
         self.args = args
-        lang = (args.language or "").lower()
+        # priority: what the user clicked in the app > --language > system language > English
+        lang = "" if args.preview else get_saved_language()
+        if not lang:
+            lang = (args.language or "").lower()
         if lang not in LANGS:
             lang = system_language()
         self.lang = lang if lang in LANGS else "en"
@@ -516,6 +596,12 @@ class App:
         self.root.withdraw()
         self.quotes = self.load_quotes()
         self.due = 0.0
+
+    def set_language(self, code):
+        self.lang = code
+        self.S = STRINGS[code]
+        if self.second == code:
+            self.second = ""
 
     def load_quotes(self):
         try:
@@ -575,6 +661,8 @@ class App:
         a = self.args
         if a.preview:
             scr = BreakScreen(self, a.break_minutes, lambda r: self.root.quit(), preview_finished=a.preview_finished, preview=True)
+            if a.preview_switch_to in LANGS:
+                scr.switch_language(a.preview_switch_to)          # test only: pretend the user clicked a language
             self.root.after(1500, lambda: self.capture(scr))
             self.root.mainloop()
             return
@@ -617,6 +705,7 @@ def main():
     p.add_argument("--preview", default="", help=argparse.SUPPRESS)
     p.add_argument("--preview-index", type=int, default=0, help=argparse.SUPPRESS)
     p.add_argument("--preview-finished", action="store_true", help=argparse.SUPPRESS)
+    p.add_argument("--preview-switch-to", default="", help=argparse.SUPPRESS)
     args = p.parse_args()
     if not (args.test_now or args.preview):
         lock = single_instance()           # keep a reference so the port stays bound

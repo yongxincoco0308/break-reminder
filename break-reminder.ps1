@@ -19,7 +19,8 @@ param(
     [string]$PreviewPath = '',
     [int]$PreviewIndex = 0,
     [switch]$PreviewFinished,
-    [switch]$TestNow
+    [switch]$TestNow,
+    [string]$PreviewSwitchTo = ''
 )
 
 Add-Type -AssemblyName System.Windows.Forms
@@ -81,7 +82,7 @@ $Strings = @{
         skip = 'Saltar este descanso'
         snooze = 'Recuérdamelo en {0:0} min'
         hint = 'Pulsa Esc o un botón para cerrar cuando quieras'
-        doneTitle = '¡Descanso terminado, tú puedes!'
+        doneTitle = '¡Descanso terminado! ¡Tú puedes!'
         doneSub = 'Lo estás haciendo genial'
         doneTop = 'Próximo aviso en {0:0} minutos'
         doneBtn = 'Empezar el siguiente ciclo'
@@ -99,8 +100,32 @@ $Strings = @{
     }
 }
 
-# 语言：参数 > 系统语言 > 英文
-$Lang = $Language.ToLower()
+# 语言优先级：用户在界面里点选并保存的 > -Language 参数 > 系统语言 > 英文
+# Language priority: what the user picked in the app > -Language > system language > English
+$SettingsFile = Join-Path $env:LOCALAPPDATA 'BreakReminder\settings.json'
+function Get-SavedLanguage {
+    try {
+        if (Test-Path $SettingsFile) {
+            $s = Get-Content $SettingsFile -Raw -Encoding UTF8 | ConvertFrom-Json
+            if ($s.language -in @('zh', 'en', 'es')) { return [string]$s.language }
+        }
+    } catch { }
+    return ''
+}
+function Save-Language([string]$l) {
+    try {
+        New-Item -ItemType Directory -Force (Split-Path $SettingsFile) | Out-Null
+        (@{ language = $l } | ConvertTo-Json) | Set-Content -Path $SettingsFile -Encoding UTF8
+    } catch { }
+}
+function Set-Language([string]$l) {
+    $script:Lang = $l
+    $script:Txt = $Strings[$l]
+    if ($script:SecondLang -eq $l) { $script:SecondLang = '' }
+}
+$Lang = ''
+if (-not $PreviewPath) { $Lang = Get-SavedLanguage }
+if ($Lang -eq '') { $Lang = $Language.ToLower() }
 if ($Lang -notin @('zh', 'en', 'es')) {
     $ui = (Get-UICulture).TwoLetterISOLanguageName
     $Lang = if ($ui -in @('zh', 'es')) { $ui } else { 'en' }
@@ -327,11 +352,19 @@ function Draw-Clock {
     $sf.Dispose()
 }
 
+function New-MainFont {
+    # 名言的主字体：中文用雅黑，英文/西语用衬线体
+    $H = $script:H
+    $px = [System.Drawing.GraphicsUnit]::Pixel; $bold = [System.Drawing.FontStyle]::Bold
+    if ($Lang -eq 'zh') { return (New-Object System.Drawing.Font('Microsoft YaHei UI', [float]($H * 0.033), $bold, $px)) }
+    return (New-Object System.Drawing.Font('Georgia', [float]($H * 0.030), $bold, $px))
+}
+
 function Set-Buttons {
     $W = $script:W; $H = $script:H
     $bh = [float]($H * 0.070)
     if ($script:finished) {
-        $bw = [float]($H * 0.34); $y = [float]($H * 0.865)
+        $bw = [float]($H * 0.44); $y = [float]($H * 0.843)
         $script:btns = @(
             @{ Rect = (New-Object System.Drawing.RectangleF((($W - $bw) / 2), $y, $bw, $bh)); Text = $Txt.doneBtn; Action = 'done'; Style = 'primary' }
         )
@@ -344,10 +377,47 @@ function Set-Buttons {
             @{ Rect = (New-Object System.Drawing.RectangleF((($W - $lw) / 2), ($H * 0.919), $lw, $lh)); Text = $Txt.skip; Action = 'done'; Style = 'link' }
         )
     }
+    # 右上角的语言切换：中文 · English · Español（点一下立刻换，并记住）
+    $chipH = [float]($H * 0.040); $gap = [float]($H * 0.008)
+    $items = @(@('zh', '中文', 0.072), @('en', 'English', 0.095), @('es', 'Español', 0.095))
+    $total = 0.0; foreach ($it in $items) { $total += [float]($H * $it[2]) + $gap }
+    $x = [float]($W - $H * 0.025 - $total + $gap)
+    foreach ($it in $items) {
+        $cw = [float]($H * $it[2])
+        $script:btns += @{ Rect = (New-Object System.Drawing.RectangleF($x, [float]($H * 0.022), $cw, $chipH)); Text = $it[1]; Action = ('lang:' + $it[0]); Style = 'lang' }
+        $x += $cw + $gap
+    }
+}
+
+function Update-Texts {
+    # 切换语言后，把当前画面上所有文字换成新语言
+    if ($script:finished) {
+        $script:centerText = $Txt.doneClock
+        $script:title = $Txt.doneTitle
+        $script:tip = $Txt.doneSub
+        $script:topText = ($Txt.doneTop -f $WorkMinutes)
+    } else {
+        $script:title = ($Txt.title -f $BreakMinutes)
+        $script:topText = ($Txt.top -f $WorkMinutes)
+        $script:tip = $Txt.tips[$script:tipIdx]
+    }
+    Set-Buttons
+}
+
+function Switch-Language([string]$l) {
+    if ($l -eq $Lang) { return }
+    Set-Language $l
+    if (-not $PreviewPath) { Save-Language $l }
+    $script:fonts.QMain = New-MainFont
+    Update-Texts
+    $script:form.Invalidate()
 }
 
 function Show-Break {
     param([double]$Minutes)
+
+    # 用户可能在控制面板或上一次休息页里换过语言：每次弹出前重新读取
+    if (-not $PreviewPath) { $saved = Get-SavedLanguage; if ($saved -ne '' -and $saved -ne $Lang) { Set-Language $saved } }
 
     $script:result = 'done'
     $script:finished = $false
@@ -380,8 +450,7 @@ function Show-Break {
     $bold = [System.Drawing.FontStyle]::Bold
     $reg = [System.Drawing.FontStyle]::Regular
     $script:clockR = [float]($H * 0.14)
-    $mainFont = if ($Lang -eq 'zh') { New-Object System.Drawing.Font($fn, [float]($H * 0.033), $bold, $px) }
-                else { New-Object System.Drawing.Font('Georgia', [float]($H * 0.030), $bold, $px) }
+    $mainFont = New-MainFont
     $script:fonts = @{
         Top   = New-Object System.Drawing.Font($fn, [float]($H * 0.021), $reg, $px)
         Title = New-Object System.Drawing.Font($fn, [float]($H * 0.052), $bold, $px)
@@ -464,6 +533,18 @@ function Show-Break {
         for ($i = 0; $i -lt $script:btns.Count; $i++) {
             $bt = $script:btns[$i]; $rc = $bt.Rect
             $hov = ($i -eq $script:hover)
+            if ($bt.Style -eq 'lang') {
+                # 语言切换：当前语言有一个淡青色的小底，其余是淡淡的小字
+                if ($bt.Action -eq ('lang:' + $Lang)) {
+                    $lp = New-RoundPath $rc.X $rc.Y $rc.Width $rc.Height ($rc.Height / 2)
+                    $g.FillPath((Br (Col 255 205 235 228)), $lp); $lp.Dispose()
+                    $lc = Col 255 52 140 132
+                } else {
+                    $lc = if ($hov) { Col 255 84 66 60 } else { Col 190 150 130 115 }
+                }
+                $g.DrawString($bt.Text, $f.Link, (Br $lc), $rc, $sf)
+                continue
+            }
             if ($bt.Style -eq 'link') {
                 # 弱化：只有一行小字，颜色很淡，鼠标移上去才稍微变深
                 $lc = if ($hov) { Col 255 110 95 85 } else { Col 150 150 130 115 }
@@ -494,7 +575,7 @@ function Show-Break {
         if ($idx -ne $script:hover) {
             $script:hover = $idx
             $script:form.Cursor = if ($idx -ge 0) { [System.Windows.Forms.Cursors]::Hand } else { [System.Windows.Forms.Cursors]::Default }
-            $script:form.Invalidate((New-Object System.Drawing.Rectangle(0, [int]($script:H * 0.84), $script:W, [int]($script:H * 0.12))))
+            $script:form.Invalidate()
         }
     })
 
@@ -502,7 +583,9 @@ function Show-Break {
         param($sender, $e)
         if (((Get-Date) - $script:shownAt).TotalSeconds -lt 1.5) { return }   # 刚弹出时防误触 / ignore accidental input right after popup
         if ($script:hover -ge 0) {
-            $script:result = $script:btns[$script:hover].Action
+            $act = $script:btns[$script:hover].Action
+            if ($act -like 'lang:*') { Switch-Language $act.Substring(5); return }   # 换语言：不关闭休息页
+            $script:result = $act
             $script:form.Close()
         }
     })
@@ -555,6 +638,7 @@ function Show-Break {
         $script:shownAt = Get-Date
         if (-not $PreviewPath) { [System.Media.SystemSounds]::Asterisk.Play() }
         $script:timer.Start()
+        if ($PreviewPath -and $PreviewSwitchTo) { Switch-Language $PreviewSwitchTo }   # 仅用于测试：模拟点了语言切换
         if ($PreviewPath) {
             $script:cap = New-Object System.Windows.Forms.Timer
             $script:cap.Interval = 1200
