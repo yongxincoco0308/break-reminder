@@ -329,17 +329,19 @@ function Draw-Clock {
 
 function Set-Buttons {
     $W = $script:W; $H = $script:H
-    $bw = [float]($H * 0.34); $bh = [float]($H * 0.064)
-    $y = [float]($H * 0.865); $gap = [float]($H * 0.022)
+    $bh = [float]($H * 0.070)
     if ($script:finished) {
+        $bw = [float]($H * 0.34); $y = [float]($H * 0.865)
         $script:btns = @(
-            @{ Rect = (New-Object System.Drawing.RectangleF((($W - $bw) / 2), $y, $bw, $bh)); Text = $Txt.doneBtn; Action = 'done'; Primary = $true }
+            @{ Rect = (New-Object System.Drawing.RectangleF((($W - $bw) / 2), $y, $bw, $bh)); Text = $Txt.doneBtn; Action = 'done'; Style = 'primary' }
         )
     } else {
-        $x0 = ($W - (2 * $bw + $gap)) / 2
+        # 引导用户选“稍后提醒”：它是醒目的主按钮；“跳过本次休息”只是下面一行不起眼的小字
+        $bw = [float]($H * 0.44); $y = [float]($H * 0.843)
+        $lw = [float]($H * 0.30); $lh = [float]($H * 0.040)
         $script:btns = @(
-            @{ Rect = (New-Object System.Drawing.RectangleF($x0, $y, $bw, $bh)); Text = $Txt.skip; Action = 'done'; Primary = $false },
-            @{ Rect = (New-Object System.Drawing.RectangleF(($x0 + $bw + $gap), $y, $bw, $bh)); Text = ($Txt.snooze -f $SnoozeMinutes); Action = 'snooze'; Primary = $false }
+            @{ Rect = (New-Object System.Drawing.RectangleF((($W - $bw) / 2), $y, $bw, $bh)); Text = ($Txt.snooze -f $SnoozeMinutes); Action = 'snooze'; Style = 'primary' },
+            @{ Rect = (New-Object System.Drawing.RectangleF((($W - $lw) / 2), ($H * 0.919), $lw, $lh)); Text = $Txt.skip; Action = 'done'; Style = 'link' }
         )
     }
 }
@@ -388,7 +390,8 @@ function Show-Break {
         QMain = $mainFont
         QSec  = New-Object System.Drawing.Font('Georgia', [float]($H * 0.022), [System.Drawing.FontStyle]::Italic, $px)
         QBy   = New-Object System.Drawing.Font($fn, [float]($H * 0.017), $reg, $px)
-        Btn   = New-Object System.Drawing.Font($fn, [float]($H * 0.024), $bold, $px)
+        BtnMain = New-Object System.Drawing.Font($fn, [float]($H * 0.028), $bold, $px)
+        Link  = New-Object System.Drawing.Font($fn, [float]($H * 0.018), $reg, $px)
         Hint  = New-Object System.Drawing.Font($fn, [float]($H * 0.017), $reg, $px)
     }
     $script:sf = New-Object System.Drawing.StringFormat
@@ -461,22 +464,24 @@ function Show-Break {
         for ($i = 0; $i -lt $script:btns.Count; $i++) {
             $bt = $script:btns[$i]; $rc = $bt.Rect
             $hov = ($i -eq $script:hover)
-            $bp = New-RoundPath $rc.X $rc.Y $rc.Width $rc.Height ($rc.Height / 2)
-            if ($bt.Primary) {
-                $fc = if ($hov) { Col 255 122 202 192 } else { Col 255 96 186 176 }
-                $g.FillPath((Br $fc), $bp)
-                $tcol = Col 255 255 255 255
-            } else {
-                $fc = if ($hov) { Col 255 255 255 255 } else { Col 215 255 255 255 }
-                $g.FillPath((Br $fc), $bp)
-                $g.DrawPath((Pn (Col 255 150 208 200) 2.5), $bp)
-                $tcol = Col 255 52 140 132
+            if ($bt.Style -eq 'link') {
+                # 弱化：只有一行小字，颜色很淡，鼠标移上去才稍微变深
+                $lc = if ($hov) { Col 255 110 95 85 } else { Col 150 150 130 115 }
+                $g.DrawString($bt.Text, $f.Link, (Br $lc), $rc, $sf)
+                continue
             }
+            # 强化：主按钮带一圈柔和的光晕，更大、更亮
+            $halo = New-RoundPath ($rc.X - 7) ($rc.Y - 7) ($rc.Width + 14) ($rc.Height + 14) (($rc.Height + 14) / 2)
+            $g.FillPath((Br (Col 55 96 186 176)), $halo)
+            $halo.Dispose()
+            $bp = New-RoundPath $rc.X $rc.Y $rc.Width $rc.Height ($rc.Height / 2)
+            $fc = if ($hov) { Col 255 122 202 192 } else { Col 255 96 186 176 }
+            $g.FillPath((Br $fc), $bp)
             $bp.Dispose()
-            $g.DrawString($bt.Text, $f.Btn, (Br $tcol), $rc, $sf)
+            $g.DrawString($bt.Text, $f.BtnMain, (Br (Col 255 255 255 255)), $rc, $sf)
         }
 
-        $g.DrawString($Txt.hint, $f.Hint, (Br (Col 190 140 125 110)), (New-Object System.Drawing.RectangleF(0, ($H * 0.950), $W, ($H * 0.04))), $sf)
+        $g.DrawString($Txt.hint, $f.Hint, (Br (Col 150 140 125 110)), (New-Object System.Drawing.RectangleF(0, ($H * 0.962), $W, ($H * 0.035))), $sf)
         Free-Tmp
     })
 
