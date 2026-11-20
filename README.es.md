@@ -10,10 +10,15 @@ Windows y se instala con un solo comando.
 
 ## Por qué lo hice
 
-Paso muchas horas al día frente al ordenador y siempre se me olvidaba levantarme, estirarme y tomar un poco de aire
-fresco. Una notificación pequeña en la esquina de la pantalla era demasiado fácil de ignorar. Quería algo que de verdad
-me *interrumpiera*, pero con cariño: un reloj bonito a pantalla completa, una razón para descansar y una frase amable.
-Así que lo creé y lo comparto gratis, por si también te sirve.
+Paso muchas horas frente al ordenador y, cuando estoy en plena faena, no paro.
+
+Con el tiempo el cuerpo se queja: se me cargan los hombros, los ojos se me resecan y me duelen, y la mano se resiente por el ratón. En general, termino con el cuerpo molido.
+
+Me he dado cuenta de que, después de un rato trabajando en interior, salir a respirar aire fresco y estirarme un poco me recarga las pilas mucho más que seguir a base de aguantar. Así puedo mantener el ritmo mucho más tiempo sin quemarme.
+
+El problema es que siempre se me olvida. Una notificación diminuta en la esquina de la pantalla la descarto sin ni mirarla. Así que hice algo que, cuando toca, ocupa toda la pantalla, me obliga a parar de verdad y me dice algo bonito.
+
+Ahora lo uso todos los días y lo comparto por si a ti también te sirve.
 
 ## Por qué descansar te hace bien
 

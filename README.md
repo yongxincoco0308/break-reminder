@@ -9,10 +9,15 @@ A gentle, full-screen alarm clock that makes you take a break. Every 30 minutes 
 
 ## Why I made this
 
-I spend many hours a day at my computer, and I kept forgetting to stand up, stretch, and get some fresh air.
-A small notification in the corner of the screen was too easy to ignore. I wanted something that actually
-*interrupts* me, but kindly: a cute full-screen clock, a reason to rest, and a nice thought to go with it.
-So I built this and I'm sharing it for free in case it helps you too.
+I spend a lot of hours at my computer, and when I'm busy I just don't stop.
+
+After a while my body starts complaining: my shoulders ache, my eyes get dry and sore, and my hand gets that mouse-hand strain. Overall I just feel worn down.
+
+What I noticed is that after a stretch of working indoors, stepping outside for some fresh air and a bit of stretching recharges me way more than pushing through. It helps me keep going for the long haul instead of burning out.
+
+The problem is, I always forget. A tiny notification in the corner of the screen? I swipe it away without even looking. So I built something that takes over the whole screen when it's time, makes me actually stop, and says something kind while it does.
+
+I use it every day now, and I'm sharing it in case it helps you too.
 
 ## Why taking breaks is good for you
 
