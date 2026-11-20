@@ -4,7 +4,7 @@
 
 一个温柔的全屏闹钟，提醒你好好休息。每工作 30 分钟，它会盖满整个屏幕，给你一个 5 分钟的倒计时、一条健康小提示和一句鼓励的名言。免费、开源，支持 Windows 和 Mac。中文、English、Español 一点就能切换。
 
-<h2 align="center"><a href="https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip"><u>下载</u></a></h2>
+<h2 align="center"><a href="https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip"><ins>下载</ins></a></h2>
 
 ![休息提醒预览](preview-zh.png)
 

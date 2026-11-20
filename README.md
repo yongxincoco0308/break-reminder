@@ -6,7 +6,7 @@ A gentle full-screen alarm clock that makes you take a break. Every 30 minutes i
 5-minute countdown, a short health tip, and an encouraging quote. Free, open source, for Windows and Mac.
 Switch between English, 中文 and Español with one click.
 
-<h2 align="center"><a href="https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip"><u>Download</u></a></h2>
+<h2 align="center"><a href="https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip"><ins>Download</ins></a></h2>
 
 ![Break Reminder preview](preview-en.png)
 

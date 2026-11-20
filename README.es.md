@@ -4,7 +4,7 @@
 
 Un reloj despertador amable, a pantalla completa, que te recuerda descansar. Cada 30 minutos cubre tu pantalla con una cuenta atrás de 5 minutos, un consejo de salud y una cita que te anima. Gratis, de código abierto, para Windows y Mac. Cambia entre English, 中文 y Español con un clic.
 
-<h2 align="center"><a href="https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip"><u>Descargar</u></a></h2>
+<h2 align="center"><a href="https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip"><ins>Descargar</ins></a></h2>
 
 ![Vista previa de Break Reminder](preview-es.png)
 
