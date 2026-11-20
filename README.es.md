@@ -100,6 +100,32 @@ powershell -ExecutionPolicy Bypass -File .\uninstall.ps1
 *¿Prefieres hacer clic?* Abre el **Programador de tareas** desde el menú Inicio, busca **BreakReminder** en la
 Biblioteca del Programador de tareas, haz clic derecho y elige **Finalizar**, **Deshabilitar** o **Eliminar**.
 
+## Versión para Mac (beta)
+
+En la carpeta `macos` hay una versión aparte para macOS. Se ve y funciona igual, y usa el mismo `quotes.json`.
+
+**Necesitas Python 3 con Tk 8.6.** Lo más fácil es el instalador de https://www.python.org/downloads/macos/ (el Python que trae Apple tiene un Tk antiguo y problemático, así que solo es el último recurso).
+
+1. Descarga y descomprime el proyecto como arriba.
+2. Abre **Terminal** (pulsa `Cmd + Espacio`, escribe `Terminal` y pulsa Intro).
+3. Escribe `cd ` (con un espacio detrás), arrastra la carpeta **`macos`** desde el Finder hasta la ventana de Terminal y pulsa **Intro**.
+4. Ejecuta una línea. Elige tu idioma: `es`, `en` o `zh`.
+
+```bash
+bash install.sh --language es
+```
+
+| Quiero… | Ejecuta esto |
+|---|---|
+| **Verlo ahora mismo** | `bash test-now.sh --language es` |
+| **Comprobar que funciona** | `bash status.sh` |
+| **Pausar por ahora** (vuelve en tu próximo inicio de sesión) | `bash pause.sh` |
+| **Pausar hasta que yo diga** (tampoco se inicia solo) | `bash pause.sh --disable` |
+| **Reanudar** | `bash resume.sh` |
+| **Eliminarlo por completo** | `bash uninstall.sh` y luego borra la carpeta |
+
+Conviene saber: esta versión es una **beta**. El aspecto y la lógica están probados, pero la parte de inicio automático (launchd) todavía no se ha probado en un Mac real, así que abre un issue si algo no funciona. Mientras funciona puede aparecer un pequeño icono de Python en el Dock. La pantalla completa solo cubre tu pantalla principal. Las opciones (`--work`, `--break`, `--snooze`, `--language`, `--second-language`) funcionan igual que en Windows.
+
 ## Ajustes
 
 Añade opciones al comando de instalación. Por ejemplo, ciclos de trabajo de 45 minutos con descansos de 10 en español:

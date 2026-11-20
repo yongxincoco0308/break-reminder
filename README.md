@@ -99,6 +99,32 @@ powershell -ExecutionPolicy Bypass -File .\uninstall.ps1
 *Prefer clicking?* Open **Task Scheduler** from the Start menu, find **BreakReminder** in the Task Scheduler
 Library, then right-click it and choose **End**, **Disable** or **Delete**.
 
+## Mac version (beta)
+
+There is a separate version for macOS in the `macos` folder. It looks and works the same and uses the same `quotes.json`.
+
+**You need Python 3 with Tk 8.6.** The easiest way is the installer from https://www.python.org/downloads/macos/ (Apple's built-in Python has an old, buggy Tk, so it is only a last resort).
+
+1. Download and unzip the project as above.
+2. Open **Terminal** (press `Cmd + Space`, type `Terminal`, press Enter).
+3. Type `cd ` (with a space after it), drag the **`macos`** folder from Finder into the Terminal window, and press **Enter**.
+4. Run one line. Pick your language: `en`, `zh` or `es`.
+
+```bash
+bash install.sh --language en
+```
+
+| I want to… | Run this |
+|---|---|
+| **See it right now** | `bash test-now.sh --language en` |
+| **Check that it is running** | `bash status.sh` |
+| **Pause for now** (comes back at your next login) | `bash pause.sh` |
+| **Pause until I say so** (no auto-start either) | `bash pause.sh --disable` |
+| **Resume** | `bash resume.sh` |
+| **Delete completely** | `bash uninstall.sh`, then delete the folder |
+
+Good to know: this version is a **beta**. The look and the logic were tested, but the start-at-login part (launchd) has not yet been tested on a real Mac, so please open an issue if something doesn't work. A small Python icon may show in the Dock while it runs. The full-screen page covers your main display only. The options (`--work`, `--break`, `--snooze`, `--language`, `--second-language`) work like on Windows.
+
 ## Settings
 
 Add options to the install command. For example, a 45-minute work cycle with a 10-minute break in Spanish:

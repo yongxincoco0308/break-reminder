@@ -96,6 +96,32 @@ powershell -ExecutionPolicy Bypass -File .\uninstall.ps1
 *更喜欢点鼠标？* 在开始菜单里打开 **任务计划程序**，在"任务计划程序库"里找到 **BreakReminder**，
 右键选择 **结束**、**禁用** 或 **删除**。
 
+## Mac 版本（测试版）
+
+`macos` 文件夹里有一个单独给苹果电脑用的版本，样子和用法都一样，也读同一个 `quotes.json`。
+
+**需要装好 Python 3（带 Tk 8.6）。** 最省事的办法是去 https://www.python.org/downloads/macos/ 下载安装包（苹果自带的 Python，Tk 版本旧又容易出问题，只作为最后的备选）。
+
+1. 像上面一样下载并解压项目。
+2. 打开**终端**（按 `Cmd + 空格`，输入 `终端` 或 `Terminal`，回车）。
+3. 输入 `cd `（后面带一个空格），把访达里的 **`macos`** 文件夹拖进终端窗口，按**回车**。
+4. 运行下面这一行，语言可选 `zh`（中文）、`en`、`es`：
+
+```bash
+bash install.sh --language zh
+```
+
+| 我想要…… | 运行这条 |
+|---|---|
+| **马上看看效果** | `bash test-now.sh --language zh` |
+| **确认它在运行** | `bash status.sh` |
+| **先暂停一下**（下次登录会自动恢复） | `bash pause.sh` |
+| **一直暂停**（也不再自动启动） | `bash pause.sh --disable` |
+| **恢复** | `bash resume.sh` |
+| **彻底删除** | `bash uninstall.sh`，然后删除文件夹 |
+
+需要知道的：这个版本是**测试版**。画面和程序逻辑我都测试过，但"登录时自动启动"（launchd）这一部分还没有在真正的 Mac 上测试过，如果有问题，欢迎提 issue。运行时 Dock 里可能会出现一个小小的 Python 图标。全屏页面只会盖住主显示器。参数（`--work`、`--break`、`--snooze`、`--language`、`--second-language`）和 Windows 版用法一样。
+
 ## 设置
 
 在安装命令后面加参数就行。比如，工作 45 分钟、休息 10 分钟、使用西班牙语：
