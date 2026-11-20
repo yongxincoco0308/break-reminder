@@ -7,7 +7,7 @@ A gentle full-screen alarm clock that makes you take a break. Every 30 minutes i
 Switch between English, 中文 and Español with one click.
 
 <p align="center">
-  <a href="https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip"><img src="images/download-en.png" width="440" alt="Download for free (Windows and Mac)"></a>
+  <a href="https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip"><img src="images/download-en.png" width="300" alt="Download"></a>
 </p>
 <p align="center"><sub>One click downloads a .zip file. Then follow <b>Free download</b> and <b>Get started</b> below.</sub></p>
 
