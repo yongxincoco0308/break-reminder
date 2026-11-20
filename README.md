@@ -35,7 +35,7 @@ A five-minute pause every half hour is a small habit with real benefits:
 It is **100% free** and open source (MIT license). No account, no ads, no tracking.
 
 1. On this page, click the green **Code** button, then **Download ZIP**.
-2. Right-click the downloaded ZIP file and choose **Extract All** (on a Mac, just double-click it). You get a folder called `break-reminder-main`.
+2. Right-click the downloaded ZIP file and choose **Extract All** (on a Mac, just double-click it). You get a folder called `break-reminder-main` (if you download from the Releases page it is called `break-reminder-1.0.0`; the name does not matter).
 
 ## Get started on Windows
 

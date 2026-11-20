@@ -33,7 +33,7 @@ Una pausa de cinco minutos cada media hora es un hábito pequeño con beneficios
 Es **100 % gratis** y de código abierto (licencia MIT). Sin cuenta, sin anuncios, sin rastreo.
 
 1. En esta página, haz clic en el botón verde **Code** y luego en **Download ZIP**.
-2. Haz clic derecho en el archivo ZIP descargado y elige **Extraer todo** (en Mac, basta con hacer doble clic). Obtendrás una carpeta llamada `break-reminder-main`.
+2. Haz clic derecho en el archivo ZIP descargado y elige **Extraer todo** (en Mac, basta con hacer doble clic). Obtendrás una carpeta llamada `break-reminder-main` (si la descargas desde la página de Releases se llama `break-reminder-1.0.0`; el nombre no importa).
 
 ## Empezar en Windows
 
