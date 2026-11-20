@@ -6,6 +6,11 @@ A gentle full-screen alarm clock that makes you take a break. Every 30 minutes i
 5-minute countdown, a short health tip, and an encouraging quote. Free, open source, for Windows and Mac.
 Switch between English, 中文 and Español with one click.
 
+<p align="center">
+  <a href="https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip"><img src="images/download-en.png" width="440" alt="Download for free (Windows and Mac)"></a>
+</p>
+<p align="center"><sub>One click downloads a .zip file. Then follow <b>Free download</b> and <b>Get started</b> below.</sub></p>
+
 ![Break Reminder preview](preview-en.png)
 
 ## Why I made this
@@ -34,14 +39,16 @@ A five-minute pause every half hour is a small habit with real benefits:
 
 It is **100% free** and open source (MIT license). No account, no ads, no tracking.
 
-1. On this page, click the green **Code** button, then **Download ZIP**.
-2. Right-click the downloaded ZIP file and choose **Extract All** (on a Mac, just double-click it). You get a folder called `break-reminder-main` (if you download from the Releases page it is called `break-reminder-1.0.0`; the name does not matter).
+**Click the big button at the top of this page** (or [this link](https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip)). Your browser downloads a file called `break-reminder-main.zip`. Then:
 
+1. **Find the file.** Click it in your browser's download bar, or open your **Downloads** folder.
+2. **Unzip it.** On Windows, right-click the file → **Extract All** → **Extract**; the unzipped folder opens by itself. On a Mac, double-click the file; the folder appears next to it.
+3. In that folder you will see a file called `Break Reminder (Windows).bat` (Windows) or `Break Reminder (Mac).command` (Mac). That is the one you double-click, as described below.
 ## Get started on Windows
 
 You don't need to type any commands, and nothing else needs to be installed.
 
-1. Open the `break-reminder-main` folder and **double-click `Break Reminder (Windows).bat`**.
+1. In the folder that just opened, **double-click `Break Reminder (Windows).bat`**.
    - Windows may show a blue "Windows protected your PC" window, or ask "Do you want to run this file?". Click **More info → Run anyway** (or **Run**). This appears for any file from the internet that isn't digitally signed. The scripts are plain text, so you can open and read them first.
 2. This small window opens:
 
@@ -54,7 +61,7 @@ It now runs quietly in the background and **starts by itself every time you sign
 ## Get started on Mac (beta)
 
 1. **Install Python once** (free): download the macOS installer from https://www.python.org/downloads/macos/, open it and keep clicking *Continue*. It includes what this app needs.
-2. Open the `break-reminder-main` folder and **double-click `Break Reminder (Mac).command`**. The first time, macOS may say it can't be opened because it is from an unidentified developer. Then **right-click the file → Open → Open**.
+2. In the unzipped folder, **double-click `Break Reminder (Mac).command`**. The first time, macOS may say it can't be opened because it is from an unidentified developer. Then **right-click the file → Open → Open**.
 3. A menu with numbered choices appears. Choose **1. Start / apply settings** and answer the two questions.
 
 This version is a **beta**: the look and the logic were tested, but the start-at-login part has not yet been tested on a real Mac, so please open an issue if something doesn't work. A small Python icon may show in the Dock while it runs, and the full-screen page covers your main display only.
@@ -67,8 +74,8 @@ You don't have to decide when you install. On the break screen, click **中文 �
 
 You do all of this from the **same window you used to start it**. First, open that window again:
 
-- **Windows:** open the `break-reminder-main` folder and double-click **`Break Reminder (Windows).bat`**. The small window from the picture above opens. The bar near the top tells you what is happening: **green = running**, **yellow = paused**, **grey = not installed**.
-- **Mac:** open the `break-reminder-main` folder and double-click **`Break Reminder (Mac).command`**. A menu opens with numbered choices (1 to 7). Pick one and press **OK**.
+- **Windows:** open the folder you unzipped (`break-reminder-main`, usually inside your **Downloads** folder) and double-click **`Break Reminder (Windows).bat`**. The small window from the picture above opens. The bar near the top tells you what is happening: **green = running**, **yellow = paused**, **grey = not installed**.
+- **Mac:** open the folder you unzipped (`break-reminder-main`, usually inside your **Downloads** folder) and double-click **`Break Reminder (Mac).command`**. A menu opens with numbered choices (1 to 7). Pick one and press **OK**.
 
 Then follow the part you need:
 

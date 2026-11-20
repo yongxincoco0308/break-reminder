@@ -4,6 +4,11 @@
 
 一个温柔的全屏闹钟，提醒你好好休息。每工作 30 分钟，它会盖满整个屏幕，给你一个 5 分钟的倒计时、一条健康小提示和一句鼓励的名言。免费、开源，支持 Windows 和 Mac。中文、English、Español 一点就能切换。
 
+<p align="center">
+  <a href="https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip"><img src="images/download-zh.png" width="440" alt="免费下载（Windows 和 Mac）"></a>
+</p>
+<p align="center"><sub>点一下就会下载一个 .zip 压缩包。然后看下面的 <b>免费下载</b> 和 <b>开始用</b>。</sub></p>
+
 ![休息提醒预览](preview-zh.png)
 
 ## 我为什么做这个
@@ -32,14 +37,16 @@
 
 它**完全免费**，使用 MIT 许可证开源。不用注册账号，没有广告，也不收集任何数据。
 
-1. 在本页面点击绿色的 **Code** 按钮，再点 **Download ZIP**。
-2. 在下载好的压缩包上右键，选择 **全部解压缩**（Mac 上直接双击即可）。你会得到一个叫 `break-reminder-main` 的文件夹（如果是从 Releases 页面下载的，它叫 `break-reminder-1.0.0`，名字不影响使用）。
+**点本页最上面那个大按钮**（或者点[这个链接](https://github.com/yongxincoco0308/break-reminder/archive/refs/heads/main.zip)）。浏览器会下载一个叫 `break-reminder-main.zip` 的文件。然后：
 
+1. **找到这个文件。** 在浏览器的下载栏里点它，或者打开电脑的 **下载** 文件夹。
+2. **解压。** Windows 上：在文件上右键 → **全部解压缩** → **解压**，解压好的文件夹会自动打开。Mac 上：双击这个文件，文件夹就出现在它旁边。
+3. 在这个文件夹里，你会看到 `Break Reminder (Windows).bat`（Windows）或 `Break Reminder (Mac).command`（Mac）。双击它就行，具体看下面的步骤。
 ## 在 Windows 上开始用
 
 不用输入任何命令，也不用再安装别的东西。
 
-1. 打开 `break-reminder-main` 文件夹，**双击 `Break Reminder (Windows).bat`**。
+1. 在刚刚打开的文件夹里，**双击 `Break Reminder (Windows).bat`**。
    - Windows 可能会弹出蓝色的"Windows 已保护你的电脑"窗口，或者问你"是否要运行此文件"。点 **更多信息 → 仍要运行**（或者 **运行**）。任何从网上下载、没有数字签名的文件都会这样提示。这些脚本都是纯文本，你可以先打开看看。
 2. 会打开下面这个小窗口：
 
@@ -52,7 +59,7 @@
 ## 在 Mac 上开始用（测试版）
 
 1. **先安装一次 Python**（免费）：到 https://www.python.org/downloads/macos/ 下载 macOS 安装包，打开后一路点"继续"。它自带这个程序需要的东西。
-2. 打开 `break-reminder-main` 文件夹，**双击 `Break Reminder (Mac).command`**。第一次 macOS 可能会说"无法打开，因为来自身份不明的开发者"，这时**右键点这个文件 → 打开 → 打开**。
+2. 在解压出来的文件夹里，**双击 `Break Reminder (Mac).command`**。第一次 macOS 可能会说"无法打开，因为来自身份不明的开发者"，这时**右键点这个文件 → 打开 → 打开**。
 3. 会弹出一个带编号的菜单。选 **1. 开始 / 应用设置**，回答两个问题就行。
 
 这个版本是**测试版**：画面和程序逻辑都测试过，但"登录时自动启动"这一部分还没有在真正的 Mac 上测试过，如果有问题，欢迎提 issue。运行时 Dock 里可能会出现一个小小的 Python 图标，全屏页面只会盖住主显示器。
@@ -65,8 +72,8 @@
 
 这些事都在**你开始用它时的同一个窗口**里做。先把那个窗口重新打开：
 
-- **Windows：** 打开 `break-reminder-main` 文件夹，双击 **`Break Reminder (Windows).bat`**，就会出现上面图里的那个小窗口。窗口上方有一条状态栏，告诉你现在是什么情况：**绿色 = 正在运行**，**黄色 = 已暂停**，**灰色 = 还没安装**。
-- **Mac：** 打开 `break-reminder-main` 文件夹，双击 **`Break Reminder (Mac).command`**，会弹出一个带编号（1 到 7）的菜单，选一项再点 **OK**。
+- **Windows：** 打开你解压出来的文件夹（`break-reminder-main`，通常在 **下载** 文件夹里），双击 **`Break Reminder (Windows).bat`**，就会出现上面图里的那个小窗口。窗口上方有一条状态栏，告诉你现在是什么情况：**绿色 = 正在运行**，**黄色 = 已暂停**，**灰色 = 还没安装**。
+- **Mac：** 打开你解压出来的文件夹（`break-reminder-main`，通常在 **下载** 文件夹里），双击 **`Break Reminder (Mac).command`**，会弹出一个带编号（1 到 7）的菜单，选一项再点 **OK**。
 
 然后看你想做的是哪一件：
 
