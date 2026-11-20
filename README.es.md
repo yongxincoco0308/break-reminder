@@ -146,12 +146,19 @@ Si vuelves a ejecutar `install.ps1`, simplemente reemplaza los ajustes anteriore
 
 ## Las citas
 
-Incluye 50 citas de pensadores, escritores y poetas (Laozi, Confucio, Séneca, Marco Aurelio, Mandela, Helen Keller,
-Rilke, Winnie the Pooh y más), en chino, inglés y español. Cambian cada 40 segundos y, tras reiniciar, continúan donde
-se quedaron. Edita `quotes.json` para añadir las tuyas.
+Incluye 50 citas, y cada una muestra su fuente (autor y obra):
 
-El texto en inglés de las citas occidentales se comprobó con Wikiquote. Las traducciones entre idiomas son mías y sirven
-de guía; si ves algún error, abre un issue.
+- 20 de clásicos y poesía chinos (Laozi, Confucio, Tao Yuanming, Li Bai y más)
+- 14 de escritores occidentales (Séneca, Marco Aurelio, Mandela, Rilke, Winnie the Pooh y más)
+- 14 de escritores en español (Machado, Cervantes, Martí, Neruda y más)
+- 2 mensajes cortos de una galleta de la fortuna
+
+Todas están en chino, inglés y español. Cambian cada 40 segundos y, tras reiniciar, continúan donde se quedaron.
+Edita `quotes.json` para añadir las tuyas.
+
+El texto y las fuentes de las citas occidentales se comprobaron con Wikiquote. En las citas chinas y de escritores en
+español comprobé las fuentes que pude, pero no todas, y las traducciones entre idiomas son mías y sirven de guía.
+Si ves algún error, abre un issue.
 
 ## Privacidad
 

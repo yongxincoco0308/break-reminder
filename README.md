@@ -145,12 +145,19 @@ Running `install.ps1` again simply replaces your previous settings.
 
 ## The quotes
 
-There are 50 quotes from thinkers, writers and poets (Laozi, Confucius, Seneca, Marcus Aurelius, Mandela,
-Helen Keller, Rilke, Winnie-the-Pooh and more), in Chinese, English and Spanish. They rotate every 40 seconds
-and carry on where they left off after a restart. Edit `quotes.json` to add your own.
+There are 50 quotes, and each one is shown with its source (author and work):
 
-The English wording of the Western quotes was checked against Wikiquote. The translations between languages are
-my own and meant as a friendly guide, so please open an issue if you spot a mistake.
+- 20 from Chinese classics and poetry (Laozi, Confucius, Tao Yuanming, Li Bai and more)
+- 14 from Western writers (Seneca, Marcus Aurelius, Mandela, Rilke, Winnie-the-Pooh and more)
+- 14 from Spanish-language writers (Machado, Cervantes, Martí, Neruda and more)
+- 2 short messages from a fortune cookie
+
+Every quote is available in Chinese, English and Spanish. They rotate every 40 seconds and carry on where they left
+off after a restart. Edit `quotes.json` to add your own.
+
+The wording and sources of the Western quotes were checked against Wikiquote. For the Chinese and Spanish-language
+quotes I checked as many sources as I could, but not every one, and the translations between languages are my own
+and meant as a friendly guide. Please open an issue if you spot a mistake.
 
 ## Privacy
 
